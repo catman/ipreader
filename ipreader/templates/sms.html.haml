@@ -1,0 +1,10 @@
+!!! Strict
+%html
+  %head
+  %body
+    - conversations.each do |sms|
+      %p== #{ sms[:rowid] }
+      %p== #{ sms[:on_date] }
+      %p== #{ sms[:at_time] }
+      %p{ :class => sms[:direction] } 
+        = sms[:text]

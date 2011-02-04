@@ -1,0 +1,12 @@
+##!/usr/bin/env ruby
+
+$:.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
+
+dir_name = "/users/{user}/AppData/Roaming/Apple\ Computer/MobileSync/Backup/{directory name}"
+output_format = "html"
+
+dir_name = ARGV[0] if ARGV.length == 1
+output_format = ARGV[1] if ARGV.length == 2
+
+require "ipreader"
+Ipreader.Controller.read_backups(dir_name, output_format)
