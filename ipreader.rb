@@ -17,16 +17,16 @@ module Ipreader
     include Ipreader::Database::Utils
     include Ipreader::Display
 
-    def initialize(backup_path = nil, format = "html" , options = {} )
+    def initialize(backup_path = nil, format = "html" , filters = {} )
       @conversations = []
       @backup_path = backup_path
       @template_type = format
-      @options = options
+      @filters = filters
     end
 
     def start
       read_backups
-      display_sms(@template_type)
+      display_sms(@template_type, @conversations.flatten)
     end
     
     # control which backup directories to read through
@@ -37,11 +37,11 @@ module Ipreader
         full_name = File.join(@backup_path, file_name)
         unless File.directory?(full_name) 
           if is_sqlite3?(full_name)
-            @conversations << read_sms_table(full_name, @options) if sms_db?(full_name)
+            @conversations << read_sms_table(full_name, @filters) if sms_db?(full_name)
           end
         end
       end
-      return @conversations
+     # @conversations
     end
     
   end

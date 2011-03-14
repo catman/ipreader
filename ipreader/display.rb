@@ -23,14 +23,14 @@ module Ipreader
       File.join(File.dirname(__FILE__), which_template(templ))
     end
     
-    def display_sms( template_type = "html" )
+    def display_sms( template_type = "html" , conversations = nil)
       temp_loc = template_location(template_type)
-      render_template(File.read(temp_loc))
+      render_template(File.read(temp_loc), conversations)
     end
 
-    def render_template( template = nil )
+    def render_template( template = nil, conversations = nil )
       unless template.nil?
-        Haml::Engine.new(template).render( Object.new, :conversations => @conversations, :missing => @missing )
+        Haml::Engine.new(template).render( Object.new, :conversations => conversations, :missing => @missing )
       else
         Ipreader::NO_TEMPLATE
       end
