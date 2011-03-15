@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 #$:.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
 
 require 'optparse'
@@ -30,7 +29,7 @@ end
 
 # TODO add date filters
 filters = {}
-opts.on("-fi", "--filters 'COLUMN_NAME:value'", String, "Filter to apply, columns [address:value, text:value]") do |fltrs|
+opts.on("-fi", "--filters 'COLUMN_NAME:value'", String, "Filter to apply, columns [address:value[, text:value]]") do |fltrs|
   fltrs.scan(/(\w+):\s*(\w+)/) do |name, value|
     filters[name] = "%" + value + "%"
   end

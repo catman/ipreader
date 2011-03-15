@@ -42,17 +42,17 @@ module Ipreader
             exit
           else
             optional_filters = ""
-            puts "count=#{filters.count} filters=#{filters}"
             filters.keys.each do |filter|
-              optional_filters += " AND #{filter} LIKE :#{filter}"
-            end
+            optional_filters += " AND #{filter} LIKE :#{filter}"
+          end
             sql =  "SELECT rowid, date(date,'unixepoch'), address, text, flags, time(date,'unixepoch')"
             sql += " FROM message"
             sql += " WHERE text is not null #{optional_filters}"
             sql += " ORDER BY address AND date ASC"
             
-            puts "sql=#{sql}"
-            #            sql += " LIMIT 5"
+#            puts "sql=#{sql}"
+#            sql += " LIMIT 5"
+
             begin
               db.execute(sql, filters) do |row|
                 direction = case row[4]
